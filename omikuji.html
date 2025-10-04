@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>おみくじアプリ</title>
+    <style>
+        body {
+            /* display: flex;             Flexboxレイアウト */
+            /* justify-content: center;   横方向の中央揃え */
+            /* align-items: center;       縦方向の中央揃え */
+            text-align: center;
+        }
+
+        img {
+            height: auto;
+            width: 20%;
+        }
+
+        #result {
+            font-size: 36px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container"> -->
+    <h1>今日の運勢</h1>
+    <h2>今日の運勢は？</h2>
+    <img src=".\omikuji.jpg">
+    <button id="button">おみくじを引く</button>
+    <p id="countdown"></p>
+    <p id="result"></p>
+    <!-- </div> -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // ここに処理を書く
+            console.log('DOMの読み込みが完了しました');
+
+            const button = document.querySelector(`#button`);
+            const result = document.querySelector(`#result`);
+            const countdown = document.querySelector(`#countdown`);
+
+
+            function drawOmikuji() {
+                const fortune = [`大吉`, `中吉`, `小吉`, `吉`, `末吉`, `凶`, `大凶`];
+                const index = Math.floor(Math.random() * fortune.length);
+                const fortune_result = fortune[index];
+                result.textContent = "結果：" + fortune_result;
+                countdown.textContent = ``;
+
+                if (index == 0) {
+                    document.querySelector('#result').style.color = "red";
+                } else if (index == 1) {
+                    document.querySelector('#result').style.color = "orange";
+                } else if (index == 2) {
+                    document.querySelector('#result').style.color = "peru";
+                } else if (index == 3) {
+                    document.querySelector('#result').style.color = "yellow";
+                } else if (index == 4) {
+                    document.querySelector('#result').style.color = "green";
+                } else if (index == 5) {
+                    document.querySelector('#result').style.color = "dimgray";
+                } else {
+                    document.querySelector('#result').style.color = "black";
+                };
+
+                button.disabled = false;
+
+            };
+
+            button.addEventListener(`click`, function () {
+                countdown.textContent = `3秒後に結果が表示されます...`;
+                result.textContent = ``;
+                button.disabled = true;
+                setTimeout(drawOmikuji, 3000);
+            });
+
+        });
+    </script>
+</body>
+
+</html>
